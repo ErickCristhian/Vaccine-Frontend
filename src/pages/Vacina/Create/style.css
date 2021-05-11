@@ -1,0 +1,10 @@
+
+.btn-vacina {
+    background-color: #2BA8EA;
+   
+}
+
+.container-vacina {
+    display: flex;
+    justify-content: center;
+}

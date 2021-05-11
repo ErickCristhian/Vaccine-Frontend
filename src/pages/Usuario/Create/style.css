@@ -1,0 +1,8 @@
+.btn-user {
+    background-color: #168F9E;
+}
+
+.container-user {
+    display: flex;
+    justify-content: center;
+}

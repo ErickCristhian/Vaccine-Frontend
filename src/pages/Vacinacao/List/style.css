@@ -1,0 +1,17 @@
+.text-center{
+    color:white;
+    text-shadow: black 0.1em 0.1em 0.2em;
+    margin-top: 20px;
+}
+
+.lista-vacinacao{
+    color:#057FB7;
+    font-size:large;
+}
+
+.table-striped tbody tr:nth-of-type(odd){
+    background-color: #057FB7;
+    color: white;
+    border-color: #D2DDEE;
+    opacity: 0.7;
+}
