@@ -6,16 +6,23 @@ import { useHistory } from 'react-router-dom';
 import './style.css';
 
 function Create() {
-  const [calendar, setCalendar] = useState([]);
-  const [data1, setData1] = useState([]);
-  const [data2, setData2] = useState([]);
-  const [idade, setIdade] = useState([]);
+  const [dataInicio, setDataInicio] = useState();
+  const [dataFinal, setDataFinal] = useState();
+  const [faixaEtariaInicial, setFaixaEtariaInicial] = useState();
+  const [faixaEtariaFinal, setFaixaEtariaFinal] = useState();
+  const history = useHistory();
   async function handleCadastro(e){
     e.preventDefault();
     try {
-  
+      const response = await api.post('/calendario-vacinacao', {
+        dataInicio,
+        dataFinal,
+        faixaEtariaInicial,
+        faixaEtariaFinal
+      })
+      //history.push('/calendario')
     } catch (error) {
-      
+      console.log(error)
     }
   }
   return (
@@ -24,35 +31,48 @@ function Create() {
       <h1 className="text-center"> Cadastrar Novo Calendário</h1>
       <Container fluid className="container-vacina">
         <Form fluid onSubmit={handleCadastro} className="w-50">
-            {calendar?.map(calendario => ( 
-              <>
-                <FormGroup row>
-                    <Label for={calendario} sm={2}>Data Inicial:</Label>
-                    <Input 
-                      type="datetime" 
-                      name="data1" 
-                      id="data1" 
-                    />
-                </FormGroup>            
-                <FormGroup row>
-                    <Label for="data2" sm={2}>Final Inicial:</Label>
-                    <Input 
-                      type="datetime" 
-                      name="data2" 
-                      id="data2" 
-                    />
-                </FormGroup>            
-                <FormGroup row>
-                    <Label for="idade" sm={2}>Idade:</Label>
-                    <Input 
-                      type="text" 
-                      name="idade" 
-                      id="idade" 
-                      placeholder="50-90" 
-                    />
-                </FormGroup>            
-              </>
-            ))}
+              <FormGroup row>
+                  <Label for="data1" sm={2}>Data Inicial:</Label>
+                  <Input 
+                    type="date" 
+                    name="data1" 
+                    id="data1"
+                    required
+                    onChange={e => setDataInicio(e.target.value)}
+                  />
+              </FormGroup>            
+              <FormGroup row>
+                  <Label for="data2" sm={2}>Final Inicial:</Label>
+                  <Input 
+                    type="date" 
+                    name="data2" 
+                    id="data2"
+                    required
+                    onChange={e => setDataFinal(e.target.value) }
+                  />
+              </FormGroup>            
+              <FormGroup row>
+                  <Label for="idade" sm={3}>Idade Inicial:</Label>
+                  <Input 
+                    type="number" 
+                    name="idade" 
+                    id="idade" 
+                    placeholder="50"
+                    required 
+                    onChange={e => setFaixaEtariaInicial(e.target.value)}
+                  />
+              </FormGroup>
+              <FormGroup row>
+                  <Label for="idade" sm={2}>Idade Final:</Label>
+                  <Input 
+                    type="number" 
+                    name="idade" 
+                    id="idade" 
+                    placeholder="50"
+                    required 
+                    onChange={e => setFaixaEtariaFinal(e.target.value)}
+                  />
+              </FormGroup>              
             <Button type="submit" className="btn-vacina">Cadastrar</Button>
         </Form>
       </Container>

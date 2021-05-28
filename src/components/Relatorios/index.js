@@ -15,7 +15,7 @@ function List() {
               <tr>
                 <th></th>
                 <th>Nome do Usuário</th>
-                <th>Nome da vacinacao</th>
+                <th>Nome da vacina</th>
                 <th>Senha</th>
                 <th>Primeira Dose</th>
                 <th>Segunda Dose</th>

@@ -8,22 +8,29 @@ import './style.css';
 function Update() {
   const [nomeVacina, setNomeVacina] = useState();
   const [totalDoses, setTotalDoses] = useState();
+  const [intervalo, setIntervalo] = useState();
+
   const {id} = useParams();
   const history = useHistory();
 
   useEffect(() => {
       api.get('vacinas/'.concat(id)).then(response => {
-          setTotalDoses(response.totalDoses);
-          setNomeVacina(response.nomeVacina);
+          setNomeVacina(response.data.nomeVacina)
+          setTotalDoses(response.data.totalDoses)
+          setIntervalo(response.data.intervalo)
       })
   }, [id]);
 
   async function handleCadastro(e){
     e.preventDefault();
     try {
-      const response = await api.put('vacinas'.concat(id), {nomeVacina, totalDoses});
+      console.log(nomeVacina, totalDoses)
+
+      await api.post('vacinas/'.concat(id), {nomeVacina, totalDoses});
+      history.push('/vacinas')
     } catch (error) {
-      history.pushState('/vacinas')
+      console.log(error)
+      history.push('/vacinas')
     }
   }
   return (
@@ -33,23 +40,36 @@ function Update() {
       <Container className="container-vacina">          
         <Form fluid className="w-50" onSubmit={handleCadastro}>
             <FormGroup row>
-                <Label for="nomeVacina" sm={2} value={nomeVacina}> Nome</Label>
+                <Label for="nomeVacina" sm={2}> Nome</Label>
                 <Input 
                   type="text" 
                   name="nomeVacina" 
                   id="nomeVacina" 
-                  placeholder="Ex: Coronavac"
+                  defaultValue={nomeVacina || ''}
+                  required
                   onChange={e => setNomeVacina(e.target.value)}  
                 />
             </FormGroup>
             <FormGroup row>
-                <Label for="totalDoses" sm={6} value={nomeVacina}>Total de Doses</Label>
+                <Label for="totalDoses" sm={6}>Total de Doses</Label>
                 <Input 
                   type="number" 
                   name="totalDoses" 
                   id="totalDoses"
-                  placeholder="Ex: 150"
+                  defaultValue={totalDoses}
+                  required
                   onChange={e => setTotalDoses(e.target.value)}
+                />
+            </FormGroup>
+            <FormGroup row>
+                <Label for="intervalo" sm={6}>Intervalo</Label>
+                <Input 
+                  type="number" 
+                  name="intervalo" 
+                  id="intervalo"
+                  defaultValue={intervalo}
+                  required
+                  onChange={e => setIntervalo(e.target.value)}
                 />
             </FormGroup>
             

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { BsBoxArrowInRight } from 'react-icons/bs';
 import './style.css';
 import {
@@ -20,9 +20,13 @@ import {
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const history = useHistory();
   const toggle = () => setIsOpen(!isOpen);
-
+  const username = localStorage.getItem('nome');
+  function handleLogout(e) {
+    localStorage.clear();
+    history.push('/login')
+  }
   return (
     <div>
       <Navbar dark expand="md">
@@ -72,10 +76,24 @@ function Header() {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Calendários
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  <Link to="/calendario">Calendários Cadastrados</Link>
+                </DropdownItem>
+                <DropdownItem>
+                  <Link to="/calendario/novo">Cadastrar Calendário</Link>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+
           </Nav>
           <NavbarText>
-            Name
-            <Button color="link" className="btn-logout">
+            {username}
+            <Button color="link" className="btn-logout" onClick={handleLogout}>
               <BsBoxArrowInRight size={20} color="#FFF"/>
             </Button>
           </NavbarText>

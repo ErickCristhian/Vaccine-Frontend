@@ -20,10 +20,10 @@ function Home() {
             
             <div>
                     <Button className="cadastro" size="lg">
-                        <Link to=""> Cadastre-se </Link>
+                        <Link to="/usuarios/novo"> Cadastre-se </Link>
                     </Button>
                     <Button size="lg" className="login">
-                        <Link to="" className="text-white"> Entrar </Link>
+                        <Link to="/login" className="text-white"> Entrar </Link>
                     </Button>
             </div> 
             <div>

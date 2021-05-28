@@ -21,7 +21,7 @@ function Update() {
   async function handleCadastro(e){
     e.preventDefault();
     try {
-      const response = await api.put('vacinacao'.concat(id), {nomevacinacao, totalDoses});
+      const response = await api.put('vacinacao'.concat(id), {});
     } catch (error) {
       history.pushState('/vacinacaos')
     }
