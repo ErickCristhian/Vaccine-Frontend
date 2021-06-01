@@ -10,21 +10,15 @@ import {
 import './style.css';
 
 function Dashboard() {
-  const [vacinacoes, setVacinacoes] = useState();
   const [usuarios, setUsuarios] = useState();
   const [vacinas, setVacinas] = useState();
+  const [vacinacoes, setVacinacoes] = useState();
   
   useEffect(() => {
-    api.get('/dashboard/vacinas').then(response => {
-      setVacinas(response.data);
-    })
-    api.get('/dashboard/usuarios').then(response => {
-      setUsuarios(response.data);
-    })
-    api.get('/dashboard/vacinacoes').then(response => {
-      setVacinacoes(response.data);
-    })
-  }, [vacinas, usuarios, vacinacoes]);
+    api.get('/dashboard/usuarios').then(response => {setUsuarios(response.data)})
+    api.get('/dashboard/vacinas').then(response => {setVacinas(response.data)})
+    api.get('/dashboard/vacinacoes').then(response => {setVacinacoes(response.data)})
+  }, []);
 
   return (
       <>

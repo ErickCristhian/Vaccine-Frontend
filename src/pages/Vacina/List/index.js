@@ -16,10 +16,11 @@ function List() {
     api.get('/vacinas').then(response => {
       setVacinas(response.data);
     })
-  }, [vacinas]);
+  }, []);
+  
   async function handlerDelete(id){
     try{
-      await api.delete('/vacinas/'.concat(id))
+      await api.post('/vacinas/delete/'.concat(id));
 
       setVacinas(vacinas.filter(vacina => vacina.id !== id));
     }catch(error){
@@ -49,7 +50,7 @@ function List() {
                   <td>{vacina.totalDoses}</td>
                   <td>{vacina.intervalo}</td>
                   <td><Link to={`/vacinas/editar/${vacina.idVacina}`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
-                  <td><IoMdTrash onClick={() => handlerDelete(vacina.idVacina)} size={30} color="#EE0000"/></td>
+                  <td><IoMdTrash className="deleteButton" onClick={() => handlerDelete(vacina.idVacina)} size={30} color="#EE0000"/></td>
                 </tr>
               ))}
             </tbody>

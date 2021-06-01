@@ -5,18 +5,20 @@ import api from '../../../services/api';
 import { useHistory } from 'react-router-dom';
 import Relatorio from '../../../components/Relatorios'
 import './style.css';
+import moment from 'moment';
 
 function Vacinacao() {
   const [Vacinacao, setVacinacao] = useState();
-  const [Data, setData] = useState();
+  const [dataVacinar, setData] = useState();
   const history = useHistory();
 
   
-  async function handleCadastro(e){
+  async function handleVacinacao(e){
     e.preventDefault();
     try {
-      const response = await api.post('vacinas');
-      history.push('/vacinas')
+      const response = await api.get('vacinacao/relatorioParaVacinar',  {dataVacinar});
+      setVacinacao(response.data)
+      //history.push('/vacinas')
     } catch (error) {
       console.log(error)
     }
@@ -26,7 +28,7 @@ function Vacinacao() {
       <Header/>
       <h1 className="text-center">Consultar Vacinações</h1>
       <Container fluid className="container-vacina">
-        <Form fluid onSubmit={handleCadastro} className="w-50">
+        <Form fluid onSubmit={handleVacinacao} className="w-50">
             <FormGroup row>
                 <Label for="data" sm={4}>Data a pesquisar...</Label>
                 <Input 

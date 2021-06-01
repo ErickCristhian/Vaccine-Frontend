@@ -24,13 +24,10 @@ function Update() {
   async function handleCadastro(e){
     e.preventDefault();
     try {
-      console.log(nomeVacina, totalDoses)
-
-      await api.post('vacinas/'.concat(id), {nomeVacina, totalDoses});
+      await api.post('vacinas/editar/'.concat(id), {nomeVacina, totalDoses, intervalo});
       history.push('/vacinas')
     } catch (error) {
       console.log(error)
-      history.push('/vacinas')
     }
   }
   return (

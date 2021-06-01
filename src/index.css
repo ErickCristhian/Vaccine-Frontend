@@ -22,3 +22,7 @@ a {
 nav {
   background-color: #168F9E;
 }
+
+.deleteButton {
+  cursor: pointer;
+}

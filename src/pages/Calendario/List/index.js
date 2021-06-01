@@ -9,14 +9,17 @@ import './style.css';
 
 function List() {
 
-  const [calendario, setCalendario] = useState([]);
-
+  const [calendario, setCalendario] = useState();
+  const type = localStorage.getItem('type');
 
   useEffect(() => {
     api.get('/calendario-vacinacao').then(response => {
       setCalendario(response.data);
+      console.log(response.data)
     })
-  }, [calendario]);
+  }, []);
+
+
     return (
       <>
         <Header/>
@@ -30,19 +33,22 @@ function List() {
                 <th>Data Final</th>
                 <th>Idade Inicial</th>
                 <th>Idade Final</th>
+                {type == 'ADMIN' && 
                 <th>Ações</th>
+                }
               </tr>
             </thead>
             <tbody>
               {calendario?.map(cal => (
-                <tr key={cal.idCalendario}>
+                <tr key={cal.idCalendarioVacinacao}>
                   <th scope="row">{cal.idCalendarioVacinacao}</th>
                   <td>{cal.dataInicio}</td>
                   <td>{cal.dataFinal}</td>
                   <td>{cal.faixaEtariaInicial}</td>
                   <td>{cal.faixaEtariaFinal}</td>
-                  <td><Link to={`/calendario/editar/${cal.idCalendarioVacinacao}`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
-                  <td><IoMdTrash size={30} color="#EE0000"/></td>
+                  <td>{type == 'ADMIN' && <Link to={`/calendario/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link>}</td>
+                  <td>{type == 'ADMIN' &&<IoMdTrash size={30} color="#EE0000"/>}</td>
+                  
                 </tr>
               ))}
             </tbody>

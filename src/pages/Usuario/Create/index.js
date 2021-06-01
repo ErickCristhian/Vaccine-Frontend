@@ -5,6 +5,7 @@ import Header from '../../../components/Header';
 import api from '../../../services/api';
 import Cryptojs from 'crypto-js';
 import './style.css';
+import moment from 'moment';
 
 function Create() {
     const [nome, setNome] = useState('');
@@ -13,6 +14,7 @@ function Create() {
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
     const [email, setEmail] = useState('');
+    let data;
     const [password, setPassword] = useState('');
     const history = useHistory();
 
@@ -20,9 +22,8 @@ function Create() {
     async function handleCadastro(e){
         e.preventDefault();
         try {
-            var hash = Cryptojs.SHA256(password);
+            let hash = Cryptojs.SHA256(password)
             const senha = hash.toString(Cryptojs.enc.Base64);
- 
             const response = await api.post('usuarios', {
                 nome,
                 idade,
@@ -32,7 +33,7 @@ function Create() {
                 email,
                 senha
             });
-          history.push('/usuarios')
+          history.push('/dashboard')
         } catch (error) {
           console.log(error)
         }

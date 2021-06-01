@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Form, FormGroup, Label, Input, Button} from 'reactstrap';
+import { Container, Form, FormGroup, Label, Button,CustomInput} from 'reactstrap';
 import Header from '../../../components/Header';
 import api from '../../../services/api';
 import { useHistory, useParams } from 'react-router-dom';
@@ -7,8 +7,8 @@ import './style.css';
 
 function Update() {
   const [vacinacao, setVacinacao] = useState();
-  const [nomevacinacao, setNomevacinacao] = useState();
-  const [totalDoses, setTotalDoses] = useState();
+  const [vacinadoPrimeiraDose, setPrimeiraDose] = useState(false);
+  const [vacinadoSegundaDose, setSegundaDose] = useState(false);
   const {id} = useParams();
   const history = useHistory();
 
@@ -21,39 +21,50 @@ function Update() {
   async function handleCadastro(e){
     e.preventDefault();
     try {
-      const response = await api.put('vacinacao'.concat(id), {});
+      const response = await api.post('vacinacao/editar/'.concat(id), {vacinadoPrimeiraDose, vacinadoSegundaDose});
+      history.push('/vacinacao')
     } catch (error) {
-      history.pushState('/vacinacaos')
+      console.log(error)
     }
   }
   return (
     <>
       <Header/>
       <h1 className="text-center">Atualizar vacinacao</h1>
-      <Container className="container-vacinacao">          
+      <Container className="container-vacina atualizar-vacinacao">    
+
         <Form fluid className="w-50" onSubmit={handleCadastro}>
             <FormGroup row>
-                <Label for="nomevacinacao" sm={2} value={nomevacinacao}> Nome</Label>
-                <Input 
-                  type="text" 
-                  name="nomevacinacao" 
-                  id="nomevacinacao" 
-                  placeholder="Ex: Coronavac"
-                  onChange={e => setNomevacinacao(e.target.value)}  
-                />
+                <Label sm={6}>Senha: {vacinacao?.senhaVacina}</Label>
             </FormGroup>
             <FormGroup row>
-                <Label for="totalDoses" sm={6} value={nomevacinacao}>Total de Doses</Label>
-                <Input 
-                  type="number" 
-                  name="totalDoses" 
-                  id="totalDoses"
-                  placeholder="Ex: 150"
-                  onChange={e => setTotalDoses(e.target.value)}
-                />
+                <Label sm={6}>Primeira Dose: {vacinacao?.primeiraDose}</Label>
+            </FormGroup>
+            <FormGroup row>
+                <Label sm={6}>Segunda Dose: {vacinacao?.segundaDose}</Label>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="primeiraDose" sm={6}>Tomou a Primeira Dose</Label>
+                <div>
+                <CustomInput 
+                    type="switch" 
+                    id="primeiraDose" 
+                    name="primeiraDose"
+                    onChange={e => setPrimeiraDose(!vacinadoPrimeiraDose)}/>
+                </div>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="segundaDose" sm={6}>Tomou a Segunda Dose</Label>
+                <div>
+                  <CustomInput 
+                      type="switch" 
+                      id="segundaDose" 
+                      name="segundaDose"
+                      onChange={e => setSegundaDose(!vacinadoSegundaDose)}/>
+                </div>
             </FormGroup>
             
-            <Button type="submit" className="btn-vacinacao">Atualizar</Button>
+            <Button type="submit" className="btn-vacina">Atualizar</Button>
         </Form>
     </Container>
     </>

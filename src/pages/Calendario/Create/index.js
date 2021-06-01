@@ -8,21 +8,24 @@ import './style.css';
 function Create() {
   const [dataInicio, setDataInicio] = useState();
   const [dataFinal, setDataFinal] = useState();
-  const [faixaEtariaInicial, setFaixaEtariaInicial] = useState();
-  const [faixaEtariaFinal, setFaixaEtariaFinal] = useState();
+  const [faixaEtariaInicial, setfaixaEtariaInicial] = useState();
+  const [faixaEtariaFinal, setfaixaEtariaFinal] = useState();
   const history = useHistory();
+  
   async function handleCadastro(e){
     e.preventDefault();
     try {
-      const response = await api.post('/calendario-vacinacao', {
+      const response = await api.post('calendario-vacinacao',
+      {
         dataInicio,
         dataFinal,
         faixaEtariaInicial,
         faixaEtariaFinal
       })
-      //history.push('/calendario')
+      history.push('/calendario')
+  
     } catch (error) {
-      console.log(error)
+      
     }
   }
   return (
@@ -37,18 +40,18 @@ function Create() {
                     type="date" 
                     name="data1" 
                     id="data1"
+                    onChange={e=>setDataInicio(e.target.value)}
                     required
-                    onChange={e => setDataInicio(e.target.value)}
                   />
               </FormGroup>            
               <FormGroup row>
-                  <Label for="data2" sm={2}>Final Inicial:</Label>
+                  <Label for="data2" sm={2}>Data Final:</Label>
                   <Input 
                     type="date" 
                     name="data2" 
                     id="data2"
-                    required
-                    onChange={e => setDataFinal(e.target.value) }
+                    onChange={e=>setDataFinal(e.target.value)}
+                    required 
                   />
               </FormGroup>            
               <FormGroup row>
@@ -57,9 +60,9 @@ function Create() {
                     type="number" 
                     name="idade" 
                     id="idade" 
-                    placeholder="50"
+                    placeholder="90"
+                    onChange={e=>setfaixaEtariaInicial(e.target.value)}
                     required 
-                    onChange={e => setFaixaEtariaInicial(e.target.value)}
                   />
               </FormGroup>
               <FormGroup row>
@@ -69,8 +72,8 @@ function Create() {
                     name="idade" 
                     id="idade" 
                     placeholder="50"
+                    onChange={e=>setfaixaEtariaFinal(e.target.value)}
                     required 
-                    onChange={e => setFaixaEtariaFinal(e.target.value)}
                   />
               </FormGroup>              
             <Button type="submit" className="btn-vacina">Cadastrar</Button>

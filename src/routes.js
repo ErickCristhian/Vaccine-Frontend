@@ -16,6 +16,7 @@ import CalendarioEditar from './pages/Calendario/Update';
 import RVacinados from './pages/Relatorios/vacinados';
 import RVacinacao from './pages/Relatorios/vacinacao';
 import Dashboard from './pages/Dashboard';
+import NotFound from './pages/NotFound';
 
 
 
@@ -24,6 +25,7 @@ export default function Routes(){
     return (
         <Router>
             <Switch>
+                
                 {/* rota home */}
                 <Route path="/" exact component={Home}/>
                 {/* rota home */}
@@ -59,6 +61,7 @@ export default function Routes(){
                 {/*rotas de dashboard*/}
                 <Route path="/dashboard" exact component={Dashboard}/>
                 {/*rotas de dashboard*/}
+                <Route path="/" component={NotFound}/>
             </Switch>
         </Router>
     );

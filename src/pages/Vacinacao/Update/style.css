@@ -1,0 +1,14 @@
+.atualizar-vacinacao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.atualizar-vacinacao .form-group {
+    display: flex;
+    vertical-align: text-bottom;
+}
+
+.custom-switch {
+    padding-top: 0.5rem;
+}

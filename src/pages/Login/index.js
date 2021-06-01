@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import {useHistory} from 'react-router-dom';
-import Cryptojs from 'crypto-js';
+import {Link, useHistory} from 'react-router-dom';
+import CryptoJS from 'crypto-js';
 import {
     Navbar, 
     NavbarBrand, 
@@ -14,25 +14,26 @@ import api from '../../services/api';
 import './style.css';
 
 function Login() {
-    const [email, setEmail] = useState('');
+    const [email, setLogin] = useState('');
     const [Password, setPassword] = useState('');
     const history = useHistory();
     
     async function handleSubmit(e){
         e.preventDefault();
         try {
-            var hash = Cryptojs.SHA256(Password);
-            const senha = hash.toString(Cryptojs.enc.Base64);
-
-            const response = await api.post('/login', {email, senha})
-
-            localStorage.setItem('user_id', response.data.idUsuario)
-            localStorage.setItem('nome', response.data.nome)
-            localStorage.setItem('type', response.data.tipo)
-            history.push('/dashboard');
+            let hash = CryptoJS.SHA256(Password)
+            const senha = hash.toString(CryptoJS.enc.Base64);
             
+            const response = await api.post('/login', {email, senha})
+            
+            if(response.data){
+                localStorage.setItem('nome', response.data.nome)
+                localStorage.setItem('id', response.data.idUsuario)
+                localStorage.setItem('type', response.data.tipo)
+                
+                history.push('/dashboard');
+            }
         } catch (error) {
-            console.log(error)
             alert('Falha no Login, tente Novamente.')
         }
     }
@@ -47,13 +48,13 @@ function Login() {
             <h1 className="text-sm-center text-white login">Acessar</h1>
                 <FormGroup row>
                     <Col>
-                        <Input type="email" 
+                        <Input type="text" 
                         name="nome" 
                         id="nome" 
                         placeholder="E-mail"
                         className="input-login"
                         required
-                        onChange={e => setEmail(e.target.value)}/>
+                        onChange={e => setLogin(e.target.value)}/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -71,7 +72,7 @@ function Login() {
                     Login
                 </Button>
                 <div class="link-cadastro">
-                    <p>Ainda não realizou seu cadastro? -----LINK----</p>
+                    <p>Ainda não realizou seu cadastro? <Link to="/usuarios/novo" className="text-white">-----LINK----</Link></p>
                 </div>
             </Form>
         </Container>
