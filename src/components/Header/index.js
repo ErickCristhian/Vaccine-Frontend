@@ -25,7 +25,7 @@ function Header() {
   const history = useHistory();
   useEffect(() => {
     if(type == undefined){
-      if(window.location.href != 'https://vaccine-frontend-ns6ric6tg-erickcristhian.vercel.app/usuarios'){
+      if(window.location.href != 'https://vaccine-frontend-ns6ric6tg-erickcristhian.vercel.app/usuarios/novo'){
         history.push('/login')
         }
     }
