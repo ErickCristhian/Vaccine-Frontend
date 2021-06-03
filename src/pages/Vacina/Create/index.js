@@ -28,7 +28,7 @@ function Create() {
       <Header/>
       <h1 className="text-center">Cadastrar Nova Vacina</h1>
       <Container fluid className="container-vacina">
-        <Form fluid className="w-50">
+        <Form fluid className="w-50" onSubmit={handleCadastro}>
             <FormGroup row data-testeid="form-vacina">
                 <Label for="nomeVacina" sm={2}>Nome</Label>
                 <Input 
