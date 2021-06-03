@@ -16,7 +16,7 @@ function Create() {
     e.preventDefault();
     try {
       const response = await api.post('vacinas', 
-          {nomeVacina, totalDoses, intervalo}
+          {intervalo, nomeVacina, totalDoses}
       );
       history.push('/vacinas')
     } catch (error) {
