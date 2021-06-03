@@ -25,8 +25,9 @@ function Header() {
   const history = useHistory();
   useEffect(() => {
     if(type == undefined){
-      if(window.location.href != 'https://vaccine-frontend-ns6ric6tg-erickcristhian.vercel.app/usuarios')
-      history.push('/login')
+      if(window.location.href != 'https://vaccine-frontend-ns6ric6tg-erickcristhian.vercel.app/usuarios'){
+        history.push('/login')
+        }
     }
   }, [])
   const toggle = () => setIsOpen(!isOpen);
