@@ -16,9 +16,7 @@ function Create() {
     e.preventDefault();
     try {
       const response = await api.post('vacinas', 
-          {nomeVacina, totalDoses, intervalo, headers: {
-            "Access-Control-Allow-Origin": "*"
-          }}
+          {nomeVacina, totalDoses, intervalo}
       );
       history.push('/vacinas')
     } catch (error) {
