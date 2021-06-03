@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { BsBoxArrowInRight } from 'react-icons/bs';
 import './style.css';
@@ -23,7 +23,12 @@ function Header() {
   const Nome = localStorage.getItem('nome');
   const type = localStorage.getItem('type');
   const history = useHistory();
-
+  useEffect(() => {
+    if(type == undefined){
+      if(window.location.href != 'https://vaccine-frontend-ns6ric6tg-erickcristhian.vercel.app/usuarios')
+      history.push('/login')
+    }
+  }, [])
   const toggle = () => setIsOpen(!isOpen);
 
   function handleLogout(){
