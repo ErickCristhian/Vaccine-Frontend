@@ -27,7 +27,7 @@ function Create() {
   }
   return (
     <>
-      {Header}
+      <Header/>
       <h1 className="text-center">Cadastrar Nova Vacina</h1>
       <Container fluid className="container-vacina">
         <Form fluid className="w-50">
